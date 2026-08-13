@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness Grid – Curated Wellness Retreats</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+  <a href="index.html" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;margin-right:auto;">
+    <img src="logo.png" alt="Wellness Grid" style="height:38px;">
+    <span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#2C2926;">Wellness <span style="color:#7A9E7E;">Grid</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Explore</a>
+    <a href="admin.html">Admin</a>
+    <a class="btn-nav" onclick="openModal()">Enquire Now</a>
+  </div>
+</nav>
+    </a>
+    
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">✦ Curated Wellness Experiences</div>
+    <h1>Find Your Perfect <em>Wellness Retreat</em></h1>
+    <p>Discover transformative retreats across 40+ countries.</p>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search retreats, destinations...">
+      <button onclick="applyFilters()">Search</button>
+    </div>
+    <div class="hero-tags">
+      <span onclick="quickFilter('yoga')">Yoga</span>
+      <span onclick="quickFilter('meditation')">Meditation</span>
+      <span onclick="quickFilter('detox')">Detox</span>
+      <span onclick="quickFilter('ayurveda')">Ayurveda</span>
+      <span onclick="quickFilter('silent')">Silent Retreats</span>
+    </div>
+  </section>
+
+  <div class="filters-bar">
+    <select id="f-country" onchange="applyFilters()">
+      <option value="">All Countries</option>
+      <option>Indonesia</option>
+      <option>Italy</option>
+      <option>India</option>
+      <option>Mexico</option>
+      <option>Portugal</option>
+      <option>Thailand</option>
+      <option>Costa Rica</option>
+      <option>USA</option>
+    </select>
+    <select id="f-type" onchange="applyFilters()">
+      <option value="">All Types</option>
+      <option value="yoga">Yoga</option>
+      <option value="meditation">Meditation</option>
+      <option value="detox">Detox</option>
+      <option value="ayurveda">Ayurveda</option>
+      <option value="silent">Silent</option>
+      <option value="surf">Surf</option>
+    </select>
+    <select id="f-price" onchange="applyFilters()">
+      <option value="">Any Price</option>
+      <option value="0-1000">Under ₹1,000</option>
+      <option value="1000-3000">₹1,000 – ₹3,000</option>
+      <option value="3000-99999">₹3,000+</option>
+    </select>
+    <span id="result-count" class="result-count">Loading...</span>
+  </div>
+
+  <main class="listings">
+    <div id="cards-grid" class="cards-grid">
+      <p class="loading-msg">Loading retreats...</p>
+    </div>
+  </main>
+
+  <!-- INQUIRY MODAL -->
+  <div id="modal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2>Enquire About This Retreat</h2>
+          <p id="modal-subtitle">We'll get back to you within 24 hours.</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <form id="inquiry-form" onsubmit="submitInquiry(event)">
+        <div class="form-row-2">
+          <div><label>First Name *</label><input type="text" id="firstName" required></div>
+          <div><label>Last Name *</label><input type="text" id="lastName" required></div>
+        </div>
+        <label>Email *</label>
+        <input type="email" id="email" required>
+        <label>Phone</label>
+        <input type="tel" id="phone">
+        <div class="form-row-2">
+          <div><label>Preferred Month</label><input type="month" id="preferredDate"></div>
+          <div>
+            <label>Guests</label>
+            <select id="guestCount">
+              <option>1 (Solo)</option><option>2 (Couple)</option>
+              <option>3-5</option><option>6+</option>
+            </select>
+          </div>
+        </div>
+        <label>Message</label>
+        <textarea id="message" rows="3" placeholder="Any questions or requirements..."></textarea>
+        <input type="hidden" id="retreatId">
+        <input type="hidden" id="retreatTitle">
+        <button type="submit" class="btn-submit">Send Enquiry</button>
+        <p class="form-note"> Your details are kept private.</p>
+      </form>
+      <div id="form-success" style="display:none;" class="success-msg">
+        <div class="success-icon">✓</div>
+        <h3>Enquiry Sent!</h3>
+        <p>The retreat team will respond within 24 hours.</p>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <footer class="footer">Made by Pranav & Rohan</footer>
+</body>
+</html>

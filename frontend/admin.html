@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Wellness Grid</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">Wellness Grid Admin</div>
+      <nav class="admin-nav">
+        <a class="admin-nav-item active" onclick="showTab('dashboard', this)"> Dashboard</a>
+        <a class="admin-nav-item" onclick="showTab('retreats', this)"> Retreats</a>
+        <a class="admin-nav-item" onclick="showTab('leads', this)">
+           Leads <span id="new-leads-badge" class="badge"></span>
+        </a>
+        <hr style="border-color:#ffffff15;margin:1rem 0;">
+        <a class="admin-nav-item" href="index.html">← View Site</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+
+      <!-- DASHBOARD -->
+      <div id="tab-dashboard" class="admin-tab active">
+        <h1 class="admin-title">Dashboard</h1>
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-label">Active Retreats</div>
+            <div class="stat-num" id="stat-retreats">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Leads</div>
+            <div class="stat-num" id="stat-leads">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">New Leads</div>
+            <div class="stat-num" id="stat-new-leads">—</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span>Recent Leads</span>
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Retreat</th><th>Status</th></tr></thead>
+            <tbody id="recent-leads-body"><tr><td colspan="4">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RETREATS -->
+      <div id="tab-retreats" class="admin-tab">
+        <div class="tab-header">
+          <h1 class="admin-title">Manage Retreats</h1>
+          <button class="btn-add" onclick="toggleAddForm()">+ Add Retreat</button>
+        </div>
+        <div id="add-retreat-form" class="admin-card" style="display:none;">
+          <h3 id="form-title">Add New Retreat</h3>
+          <input type="hidden" id="edit-id">
+          <div class="form-grid-2">
+            <div><label>Title *</label><input type="text" id="r-title" placeholder="e.g. Bali Yoga Retreat"></div>
+            <div><label>Location *</label><input type="text" id="r-location" placeholder="e.g. Ubud, Bali, Indonesia"></div>
+            <div><label>Country *</label><input type="text" id="r-country" placeholder="e.g. Indonesia"></div>
+            <div>
+              <label>Type *</label>
+              <select id="r-type">
+                <option value="yoga">Yoga</option>
+                <option value="meditation">Meditation</option>
+                <option value="detox">Detox</option>
+                <option value="ayurveda">Ayurveda</option>
+                <option value="silent">Silent</option>
+                <option value="surf">Surf</option>
+              </select>
+            </div>
+            <div><label>Price (USD)</label><input type="number" id="r-price"></div>
+            <div><label>Duration</label><input type="text" id="r-duration" placeholder="7 nights"></div>
+          </div>
+          <label>Description</label>
+          <textarea id="r-description" rows="3"></textarea>
+          <label>Image URL</label>
+          <input type="text" id="r-imageUrl" placeholder="https://...">
+          <label>Amenities (comma-separated)</label>
+          <input type="text" id="r-amenities" placeholder="Yoga, Meals, Pool">
+          <label>Available Dates (comma-separated YYYY-MM-DD)</label>
+          <input type="text" id="r-dates" placeholder="2025-06-07,2025-07-05">
+          <div style="margin-top:1rem;display:flex;gap:.5rem;">
+            <button class="btn-cancel" onclick="cancelForm()">Cancel</button>
+            <button class="btn-save" onclick="saveRetreat()">Save Retreat</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <table>
+            <thead><tr><th>Title</th><th>Location</th><th>Type</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="retreats-body"><tr><td colspan="6">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LEADS -->
+      <div id="tab-leads" class="admin-tab">
+        <div class="tab-header">
+          <h1 class="admin-title">Leads & Enquiries</h1>
+          <select onchange="filterLeads(this.value)">
+            <option value="">All</option>
+            <option value="NEW">New</option>
+            <option value="HOT">Hot</option>
+            <option value="REPLIED">Replied</option>
+            <option value="CLOSED">Closed</option>
+          </select>
+        </div>
+        <div class="admin-card">
+          <table>
+            <thead><tr><th>Name</th><th>Contact</th><th>Retreat</th><th>Message</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="leads-body"><tr><td colspan="7">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+  <footer class="footer">Made by Pranav & Rohan</footer>
+</body>
+</html>

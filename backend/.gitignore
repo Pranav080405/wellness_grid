@@ -1,0 +1,13 @@
+# Ignore compiled code
+target/
+
+# Ignore application.properties (contains DB password)
+src/main/resources/application.properties
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore IDE files
+.idea/
+*.iml
+.vscode/
