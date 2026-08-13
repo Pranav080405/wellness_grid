@@ -10,4 +10,3 @@ backend/target/
 .vscode/
 
 # Sensitive config - don't push passwords to GitHub
-backend/src/main/resources/application.properties
