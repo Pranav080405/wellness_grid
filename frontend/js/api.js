@@ -1,5 +1,10 @@
-// All fetch() calls to the Spring Boot backend live here
-const BASE_URL = 'http://localhost:8080/api';
+// Automatically pick local backend or production Render backend depending on host domain
+const BASE_URL = (
+    window.location.hostname === 'localhost' || 
+    window.location.hostname === '127.0.0.1'
+) 
+    ? 'http://localhost:8080/api'
+    : 'https://YOUR-RENDER-APP-NAME.onrender.com/api'; // <--- Replace with your actual Render URL later
 
 async function getAllRetreats() {
   const res = await fetch(`${BASE_URL}/retreats`);

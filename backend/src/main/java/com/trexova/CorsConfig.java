@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-// Without this, the browser blocks requests from frontend (port 5500)
-// to backend (port 8080) — they're on different "origins"
+// Configures Cross-Origin Resource Sharing (CORS) so browsers allow requests 
+// from your Netlify frontend & local dev servers to this backend API
 @Configuration
 public class CorsConfig {
 
@@ -15,15 +15,17 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins(
-                            "http://localhost:5500",
-                            "http://127.0.0.1:5500",
-                            "http://localhost:3000",
-                            "http://localhost:8080"
+                registry.addMapping("/**")
+                        .allowedOriginPatterns(
+                            "http://localhost:*",
+                            "http://127.0.0.1:*",
+                            "https://*.netlify.app",
+                            "https://thewellnessgrid.in",
+                            "https://www.thewellnessgrid.in"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
